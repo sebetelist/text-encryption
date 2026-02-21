@@ -20,7 +20,7 @@ def crypt():
                             output=input('File name: ') + '.key'
                             )
     if (encrypted.ok):
-        print(OKBLUE + 'Successfully encrypted!')
+        print(OKBLUE + 'Successfully encrypted!' + NC)
     else:
         print(FAIL + 'Wrong input')
     exit()
@@ -35,7 +35,8 @@ def decrypt():
             passphrase = getpass('Write a passphrase: ')
             decrypted = gpg.decrypt(str(text), passphrase=passphrase)
             if (decrypted.ok):
-                print(decrypted)
+                print(OKBLUE + 'Successfully decrypted!' + NC)
+                print(f"Text: {decrypted}")
             else:
                 print(FAIL + 'Wrong passphrase')
             f.close()
