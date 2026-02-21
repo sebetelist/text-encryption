@@ -1,4 +1,5 @@
 from gnupg import GPG
+from getpass import getpass
 from sys import exit
 
 OKBLUE = '\033[96m'
@@ -15,7 +16,7 @@ def crypt():
     
     encrypted = gpg.encrypt(str(data), recipients=None,
                             symmetric='AES256',
-                            passphrase=input('Write a passphrase: '),
+                            passphrase=getpass('Write a passphrase: '),
                             output=input('File name: ') + '.key'
                             )
     if (encrypted.ok):
@@ -31,7 +32,7 @@ def decrypt():
     try:
         with open(file, 'r') as f:
             text = f.read()
-            passphrase = input('Write a passphrase: ')
+            passphrase = getpass('Write a passphrase: ')
             decrypted = gpg.decrypt(str(text), passphrase=passphrase)
             if (decrypted.ok):
                 print(decrypted)
