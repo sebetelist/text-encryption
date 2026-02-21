@@ -10,7 +10,7 @@ gpg = GPG()
 styles, ui = conf['styles'], conf['ui']
 
 
-# crypt
+# Encryption
 def crypt():
     data = input(ui['input_data'])
     file_name = input(ui['input_file']) + conf['settings']['extension']
@@ -30,7 +30,7 @@ def crypt():
     exit()
 
 
-# decrypt
+# Decryption
 def decrypt():
     file_name = input(ui['input_file']) + conf['settings']['extension']
     password = getpass(ui['input_password'])
