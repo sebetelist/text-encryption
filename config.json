@@ -9,12 +9,15 @@
     "reset": "\u001b[0m"
   },
   "ui": {
-    "menu": "\n1. Crypt\n2. Decrypt\n3. Exit\n> ",
-    "input_data": "Data: ",
+    "menu": "\n1. Encrypt\n2. Decrypt\n3. Exit\n> ",
+    "input_data": "Text: ",
     "input_file": "File name: ",
     "input_password": "Passphrase: ",
-    "success": "Success!",
+    "success_encryption": "[ Encrypted Successfully]\n",
+    "success_decryption": "[ Decrypted Successfully]\n",
     "error_input": "Wrong passphrase",
     "error_file": "File not found"
   }
+
+
 }
