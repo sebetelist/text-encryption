@@ -1,58 +1,54 @@
 from gnupg import GPG
 from getpass import getpass
+import json
 from sys import exit
 
-OKBLUE = '\033[96m'
-FAIL = '\033[91m'
-NC = '\033[0m'
+
+with open('config.json', 'r', encoding='utf-8') as f: conf = json.load(f)
 
 gpg = GPG()
-gpg.encoding = 'utf-8'
+styles, ui = conf['styles'], conf['ui']
 
 
 # crypt
 def crypt():
-    data = input('Data: ')
+    data = input(ui['input_data'])
+    file_name = input(ui['input_file']) + conf['settings']['extension']
+    password = getpass(ui['input_password'])
+    symmetric = conf['settings']['cipher']
     
-    encrypted = gpg.encrypt(str(data), recipients=None,
-                            symmetric='AES256',
-                            passphrase=getpass('Write a passphrase: '),
-                            output=input('File name: ') + '.key'
-                            )
-    if (encrypted.ok):
-        print(OKBLUE + 'Successfully encrypted!' + NC)
+    encription = gpg.encrypt(data, 
+                             recipients=None, 
+                             symmetric=symmetric, 
+                             passphrase=password,
+                             output=file_name)
+
+    if (encription.ok):
+        print(f"{styles['info']}{ui['success']}{styles['reset']}")
     else:
-        print(FAIL + 'Wrong input')
+        print(f"{styles['error']}{ui['error_input']}{styles['reset']}")
     exit()
 
 
 # decrypt
 def decrypt():
-    file = input('File name: ') + '.key'
+    file_name = input(ui['input_file']) + conf['settings']['extension']
+    password = getpass(ui['input_password'])
     try:
-        with open(file, 'r') as f:
-            text = f.read()
-            passphrase = getpass('Write a passphrase: ')
-            decrypted = gpg.decrypt(str(text), passphrase=passphrase)
-            if (decrypted.ok):
-                print(OKBLUE + 'Successfully decrypted!' + NC)
-                print(f"Text: {decrypted}")
+        with open(file_name, 'rb') as f:
+            decryption = gpg.decrypt_file(f, passphrase=password)
+            if (decryption.ok):
+                print(f"{styles['info']}{ui['success']}{styles['reset']}\n{decryption}")
             else:
-                print(FAIL + 'Wrong passphrase')
-            f.close()
+                print(f"{styles['error']}{ui['error_input']}{styles['reset']}")
             exit()
     except FileNotFoundError:
-        print(FAIL + 'File not found' + NC)
+        print(f"{styles['error']}{ui['error_file']}{styles['reset']}")
         exit()
     
-        
+
+actions = {'1': crypt, '2': decrypt, '3': exit}
+
 while True:
-    mode = input('\nChoose mode:\n1.Crypt\n2.Decrypt\n3.Exit\n> ')
-    if mode == '1':
-        crypt()
-    elif mode == '2':
-        decrypt()
-    elif mode == '3':
-        break
-    else:
-        print(FAIL + 'Wrong input, retry again.' + NC)
+    choice = input(ui['menu'])
+    actions.get(choice, lambda: print("?"))()
