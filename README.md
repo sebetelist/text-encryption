@@ -1,35 +1,58 @@
-# GPG encryption based on AES-256
-The program encrypts data using the AES-256 algorithm and places the result in a file. Data is read from a file and output on the screen. 
-## Requirements
-- python version 3.8 or higher [download](https://www.python.org/downloads/);
-- installed git [download](https://git-scm.com/downloads);
-- installed gnupg library. To install it input in terminal:
-**pip install gnupg**.
-## Start
-Input in terminal for clone repository:
-**git clone https://github.com/sebetelist/encryption**.
+# 🔐 GPG Encryption Tool (AES-256)
 
-You must be in the same directory as the file gpg.py.
-### Linux
-To change to the directory with the file, use the command **cd path/to/files**.
+A simple CLI utility for encrypting and decrypting text using the **AES-256** symmetric algorithm via GnuPG.
 
-Replace **path/to/files** with your path.
-To run the program, use the command
-**python3 gpg.py**.
-### Windows 
-To change to the directory with the file, use the command **cd path\to\files**.
 
-Replace **path\to\files** with your path. 
-For example
-**cd C:\WINDOWS\System32\.** 
-To change disc use **cd /disc name**.
 
-Check version **python --version** or **python3 --version**.
+## 📋 Requirements
 
-Depending on the version of python:
-**python3 gpg.py** or **python gpg.py**.
-## Usage
-There are two modes - **encryption** and **decryption**. Data is encrypted using a passphrase. 
-Next, the file name is written, without specifying the extension. For example: *secret*. 
-The files are automatically created with the *.key* extension. 
-To decrypt, you also need to specify the file name without the *.key* extension and then enter the passphrase. 
+To run this tool, ensure you have the following installed:
+
+* **Python:** Version `3.11.2` or higher. [Download](https://www.python.org/downloads/)
+
+* **Git:** For repository management. [Download](https://git-scm.com/downloads)
+
+* **GnuPG:** Ensure the GnuPG binary is installed on your system.
+
+
+
+## 🚀 Getting Started
+
+1.  **Clone the Repository:**
+    ```bash
+    git clone [https://github.com/sebetelist/encryption](https://github.com/sebetelist/encryption)
+    ```
+
+2.  **Navigate to the Directory:**
+    Open your terminal and enter the project folder (where `gpg.py` is located).
+
+    ```bash
+    cd /path/to/encryption
+    ```  
+
+3.  **Install the required library:**
+
+    ```bash
+    pip3 install -r requirements.txt
+    ```
+    
+4.  **Run the program:**
+    ```bash
+    python3 gpg.py
+    ```
+
+
+
+## 📖 Usage
+1.  **Encryption: Enter text → Set Passphrase → Name file (e.g. secret).Saves as secret.key automatically.**
+
+2.  **Decryption: Enter file name (without .key) → Enter Passphrase.**
+
+
+
+## 🏗 Structure
+* **gpg.py:** Logic
+
+* **config.json:** Settings & Styles
+
+* **requirements.txt:** Deps
