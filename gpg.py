@@ -3,7 +3,6 @@ from getpass import getpass
 import json
 from sys import exit
 
-
 with open('config.json', 'r', encoding='utf-8') as f: conf = json.load(f)
 
 gpg = GPG()
@@ -41,10 +40,16 @@ def decrypt():
                 print(f"{styles['info']}{ui['success_decryption']}{styles['reset']}\n{decryption}")
             else:
                 print(f"{styles['error']}{ui['error_input']}{styles['reset']}")
-            exit()
+
     except FileNotFoundError:
         print(f"{styles['error']}{ui['error_file']}{styles['reset']}")
+    except PermissionError:
+        print(f"{styles['error']}{ui['error_permission']}{styles['reset']}")
+    except OSError:
+        print(f"{styles['error']}{ui['error_corruption']}{styles['reset']}")
+    finally:
         exit()
+    
 
 actions = {'1': encrypt, '2': decrypt, '3': exit}
 
