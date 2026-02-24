@@ -11,13 +11,13 @@
   "ui": {
     "menu": "\n1. Encrypt\n2. Decrypt\n3. Exit\n> ",
     "input_data": "Text: ",
-    "input_file": "File name: ",
+    "input_file": "File name (default'decrypted'): ",
     "input_password": "Passphrase: ",
     "success_encryption": "[ Encrypted Successfully]\n",
     "success_decryption": "[ Decrypted Successfully]\n",
     "error_input": "Wrong passphrase",
-    "error_file": "File not found"
+    "error_file": "File not found",
+    "error_corruption": "A system-level error occurred (possibly corruption)",
+    "error_permission": "You do not have permission to read this file"
   }
-
-
 }

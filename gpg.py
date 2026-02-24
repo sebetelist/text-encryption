@@ -1,8 +1,8 @@
 from gnupg import GPG
 from getpass import getpass
 import json
+from generator import get_unique_file
 from sys import exit
-
 
 with open('config.json', 'r', encoding='utf-8') as f: conf = json.load(f)
 
@@ -13,7 +13,9 @@ styles, ui = conf['styles'], conf['ui']
 # Encryption
 def encrypt():
     data = input(ui['input_data'])
-    file_name = input(ui['input_file']) + conf['settings']['extension']
+    base = 'encrypted'
+    ext = conf['settings']['extension']
+    file_path = get_unique_file(base, ext)
     password = getpass(ui['input_password'])
     symmetric = conf['settings']['cipher']
     
@@ -21,10 +23,10 @@ def encrypt():
                              recipients=None, 
                              symmetric=symmetric, 
                              passphrase=password,
-                             output=file_name)
+                             output=str(file_path))
 
     if (encription.ok):
-        print(f"{styles['info']}{ui['success_encryption']}{styles['reset']}")
+        print(f"{styles['info']}{ui['success_encryption']} -> {file_path}{styles['reset']}")
     else:
         print(f"{styles['error']}{ui['error_input']}{styles['reset']}")
     exit()
@@ -41,10 +43,16 @@ def decrypt():
                 print(f"{styles['info']}{ui['success_decryption']}{styles['reset']}\n{decryption}")
             else:
                 print(f"{styles['error']}{ui['error_input']}{styles['reset']}")
-            exit()
+
     except FileNotFoundError:
         print(f"{styles['error']}{ui['error_file']}{styles['reset']}")
+    except PermissionError:
+        print(f"{styles['error']}{ui['error_permission']}{styles['reset']}")
+    except OSError:
+        print(f"{styles['error']}{ui['error_corruption']}{styles['reset']}")
+    finally:
         exit()
+    
 
 actions = {'1': encrypt, '2': decrypt, '3': exit}
 
