@@ -11,7 +11,7 @@
   "ui": {
     "menu": "\n1. Encrypt\n2. Decrypt\n3. Exit\n> ",
     "input_data": "Text: ",
-    "input_file": "File name: ",
+    "input_file": "File name (default'decrypted'): ",
     "input_password": "Passphrase: ",
     "success_encryption": "[ Encrypted Successfully]\n",
     "success_decryption": "[ Decrypted Successfully]\n",
